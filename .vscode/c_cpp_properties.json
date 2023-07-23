@@ -1,0 +1,37 @@
+{
+    "configurations": [
+        {
+            "name": "windows-gcc-x64",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/Program Files/RedPanda-Cpp/MinGW64/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "cStandard": "c17",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "windows-gcc-x64",
+            "compilerPath": "C:/Program Files/RedPanda-Cpp/MinGW64/bin/g++.exe",
+            "compilerArgs": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "-O2",
+                "-lm",
+                "-std=c++14",
+                "-pedantic",
+                "-Wall",
+                "-Wextra",
+                "-fno-asm",
+                "-fno-omit-frame-pointer",
+                "-fno-ms-extensions",
+                "-pipe",
+                "-s",
+                "-static"
+            ]
+        }
+    ],
+    "version": 4
+}

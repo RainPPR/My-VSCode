@@ -1,0 +1,22 @@
+{
+	"git.enableSmartCommit": true,
+	"git.autofetch": true,
+	"files.autoGuessEncoding": true,
+	"code-runner.fileDirectoryAsCwd": true,
+	"code-runner.runInTerminal": true,
+	"code-runner.saveAllFilesBeforeRun": true,
+	"code-runner.executorMap": {
+		"python": "python -u",
+		"c": "echo 正在编译... && gcc.exe \"$fileName\" -o \"$fileNameWithoutExt.exe\" -fdiagnostics-color=always -g -O2 -Wall -Wextra -static && echo 编译完成，正在运行！ && D:\\Software\\Executable\\Programming\\ConsolePauser.exe 0 \"$fileNameWithoutExt.exe\" && del \"$dir$fileNameWithoutExt.exe\"",
+		"cpp": "echo 正在编译... && g++.exe \"$fileName\" -o \"$fileNameWithoutExt.exe\" -fdiagnostics-color=always -g -O2 -lm -std=c++14 -pedantic -Wall -Wextra -fno-asm -fno-omit-frame-pointer -fno-ms-extensions -pipe -s -static && echo 编译完成，正在运行！ && D:\\Software\\Executable\\Programming\\ConsolePauser.exe 0 \"$fileNameWithoutExt.exe\" && del \"$dir$fileNameWithoutExt.exe\""
+	},
+    "editor.wordWrap": "on",
+    "editor.mouseWheelZoom": true,
+	"C_Cpp.codeAnalysis.clangTidy.checks.disabled": [
+		"clang-analyzer-optin.cplusplus.UninitializedObject",
+		"clang-analyzer-deadcode.DeadStores"
+	],
+    "files.encoding": "gbk",
+    "editor.minimap.showSlider": "always",
+    "editor.minimap.enabled": false
+}
