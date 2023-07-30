@@ -1,0 +1,206 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>时钟</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            overflow: hidden;
+        }
+
+        #clock {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: #000000;
+        }
+
+        .label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            display: inline-block;
+            color: #7f7f7f;
+            text-align: center;
+            font-size: 15px;
+            transition: all 4s;
+            transform: translate(-50%, -50%);
+            transform-origin: 0% 0%;
+        }
+
+        .now {
+            color: #ffffff;
+            font-size: 17px;
+            transition: all 1s;
+        }
+
+        @media screen and (max-width:880px) {
+            .label {
+                left: 35%;
+            }
+        }
+
+        @media screen and (max-width:680px) {
+            .label {
+                left: 15%;
+                padding: 0;
+            }
+        }
+
+        @media screen and (max-width:480px) {
+            .label {
+                left: -5%;
+            }
+        }
+
+        @media screen and (max-width:400px) {
+            .label {
+                left: -15%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="clock"></div>
+    <script>
+        var centralText = ['当前时间：']
+        var monthText = ["　一月", "　二月", "　三月", "　四月", "　五月", "　六月", "　七月", "　八月", "　九月", "　十月", "十一月", "十二月"];
+        var dayText = ["０１日", "０２日", "０３日", "０４日", "０５日", "０６日", "０７日", "０８日", "０９日", "１０日", "１１日", "１２日", "１３日", "１４日", "１５日", "１６日", "１７日", "１８日", "１９日", "２０日", "２１日", "２２日", "２３日", "２４日", "２５日", "２５日", "２７日", "２８日", "２９日", "３０日", "３１日"];
+        var weekText = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+        var hourText = ["００时", "０１时", "０２时", "０３时", "０４时", "０５时", "０６时", "０７时", "０８时", "０９时", "１０时", "１１时", "１２时", "１３时", "１４时", "１５时", "１６时", "１７时", "１８时", "１９时", "２０时", "２１时", "２２时", "２３时"];
+        var minuteText = ["００分", "０１分", "０２分", "０３分", "０４分", "０５分", "０６分", "０７分", "０８分", "０９分", "１０分",
+            "１１分", "１２分", "１３分", "１４分", "１５分", "１６分", "１７分", "１８分", "１９分", "２０分",
+            "２１分", "２２分", "２３分", "２４分", "２５分", "２６分", "２７分", "２８分", "２９分", "３０分",
+            "３１分", "３２分", "３３分", "３４分", "３５分", "３６分", "３７分", "３８分", "３９分", "４０分",
+            "４１分", "４２分", "４３分", "４４分", "４５分", "４６分", "４７分", "４８分", "４９分", "５０分",
+            "５１分", "５２分", "５３分", "５４分", "５５分", "５６分", "５７分", "５８分", "５９分"];
+        var secondsText = ["００秒", "０１秒", "０２秒", "０３秒", "０４秒", "０５秒", "０６秒", "０７秒", "０８秒", "０９秒", "１０秒",
+            "１１秒", "１２秒", "１３秒", "１４秒", "１５秒", "１６秒", "１７秒", "１８秒", "１９秒", "２０秒",
+            "２１秒", "２２秒", "２３秒", "２４秒", "２５秒", "２６秒", "２７秒", "２８秒", "２９秒", "３０秒",
+            "３１秒", "３２秒", "３３秒", "３４秒", "３５秒", "３６秒", "３７秒", "３８秒", "３９秒", "４０秒",
+            "４１秒", "４２秒", "４３秒", "４４秒", "４５秒", "４６秒", "４７秒", "４８秒", "４９秒", "５０秒",
+            "５１秒", "５２秒", "５３秒", "５４秒", "５５秒", "５６秒", "５７秒", "５８秒", "５９秒"];
+
+        var clock;
+
+        var centralList = [];
+        var monthList = [];
+        var dayList = [];
+        var weekList = [];
+        var hourList = [];
+        var minuteList = [];
+        var secondsList = [];
+
+        var textList = [
+            [centralText, centralList],
+            [monthText, monthList],
+            [dayText, dayList],
+            [weekText, weekList],
+            [hourText, hourList],
+            [minuteText, minuteList],
+            [secondsText, secondsList],
+
+        ]
+
+
+        window.onload = function () {
+            init();
+
+            setTimeout(function () {
+                initTransition();
+            }, 0)
+
+            setTimeout(function () {
+                var timeArr = [0, 0, 0, 0, 0, 0, 0]
+                rotateTransition(timeArr)
+                setInterval(function () {
+                    runtime()
+                }, 1000)
+            }, 1000)
+        };
+
+        function init() {
+            clock = document.querySelector('#clock');
+
+            for (var i in textList) {
+                for (var j in textList[i][0]) {
+                    var temp = createLabel(textList[i][0][j]);
+                    clock.appendChild(temp);
+                    textList[i][1].push(temp);
+                }
+            }
+        }
+
+        function createLabel(text) {
+            var div = document.createElement('div');
+            div.classList.add('label');
+            div.innerText = text;
+            return div;
+        }
+
+        function runtime() {
+            var now = new Date();
+
+            var month = now.getMonth();
+            var day = now.getDate();
+            var week = now.getDay();
+            var hour = now.getHours();
+            var minute = now.getMinutes();
+            var seconds = now.getSeconds();
+
+            var timeArr = [0, month, day - 1, week, hour, minute, seconds]
+
+            clearColor();
+            rotateTransition(timeArr);
+            addColor(timeArr);
+        }
+
+        function addColor(timeArr) {
+            for (var i = 1; i < timeArr.length; i++) {
+                var index = timeArr[i];
+                textList[i][1][index].classList.add('now')
+            }
+        }
+
+        function clearColor() {
+            var now = document.querySelectorAll('.now');
+            now.forEach(function (item) {
+                item.classList.remove('now');
+            })
+        }
+
+        function initTransition() {
+            for (var i in textList) {
+                for (var item of textList[i][1]) {
+                    item.style.transform = 'translate(' + i * 60 + 'px,-50%)'
+                    item.style.transformOrigin = -(i * 60) + 'px 50%';
+                }
+            }
+        }
+
+        function rotateTransition(timeArr) {
+            for (var i in textList) {
+                for (var j in textList[i][1]) {
+                    var temp = textList[i][1][j];
+                    var deg = 360 / textList[i][0].length * (j - timeArr[i]);
+                    temp.style.transform = 'translate(' + i * 60 + 'px,-50%)' + ' rotate(' + deg + 'deg)';
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
