@@ -26,7 +26,7 @@ int main()
     int now = -1, cnt = 0;
     for (int i = 1; i <= n; ++i)
     {
-        if (nodes[i].l > now)
+        if (nodes[i].l >= now)
             now = nodes[i].r, ++cnt;
     }
 
