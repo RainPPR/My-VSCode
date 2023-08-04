@@ -73,17 +73,17 @@ int main()
         }
     }
 
-    int l = 0, r = 1e9, ans = -1;
+    int l = 0, r = 1e9;
     while (l < r)
     {
         int mid = l + r >> 1;
         if (check(mid))
-            r = mid, ans = mid;
+            r = mid;
         else
             l = mid + 1;
     }
 
-    printf("%d\n", ans);
+    printf("%d\n", l);
 
     // fclose(stdin);
     // fclose(stdout);
