@@ -13,7 +13,6 @@ int f[N][K], k[N][K];
 
 void add(int u, int v, int x)
 {
-    cerr << "add " << u << " --" << x << "-> " << v << endl;
     w[idx] = x;
     e[idx] = v;
     ne[idx] = h[u];
