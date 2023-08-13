@@ -18,35 +18,31 @@ int read()
 }
 
 int n, m;
-int mp[N][N];
+int a[N];
 
 int g[M];
 
 namespace s1
 {
     int ans;
-    int use[N];
 
-    void dfs(int k, int cnt)
+    void dfs(int k, int now)
     {
-        if (n - k + 1 + cnt < m)
+        if (g[now] > m)
             return;
         if (k > n)
         {
-            if (cnt == m)
+            if (g[now] == m)
                 ++ans;
             return;
         }
 
-        dfs(k + 1, cnt);
+        dfs(k + 1, now);
         for (int i = 1; i <= n; ++i)
         {
-            if (mp[k][i] && !use[i])
-            {
-                use[i] = true;
-                dfs(k + 1, cnt + 1);
-                use[i] = false;
-            }
+            int t = 1 << (n - i);
+            if ((a[k] & t) && (now & t) == 0)
+                dfs(k + 1, now | t);
         }
     }
 
@@ -61,7 +57,7 @@ namespace s1
 namespace s2
 {
     int n2;
-    int f[N][M]; // f[i][j] 计数：使用 i 个城堡，与 j 不冲突
+    int f[N][M];
 
     int ans;
 
@@ -71,7 +67,6 @@ namespace s2
             return;
         if (k > n2)
         {
-            // g[now]，子集（now ^ (1 << n) - 1）
             int r = now ^ (1 << n) - 1;
             if (g[now] == m)
                 ++f[m][0];
@@ -82,8 +77,11 @@ namespace s2
 
         dfs1(k + 1, now);
         for (int i = 1; i <= n; ++i)
-            if (mp[k][i] && (now & (1 << (i - 1))) == 0)
-                dfs1(k + 1, now | (1 << (i - 1)));
+        {
+            int t = 1 << (n - i);
+            if ((a[k] & t) && (now & t) == 0)
+                dfs1(k + 1, now | t);
+        }
     }
 
     void dfs2(int k, int now)
@@ -98,8 +96,11 @@ namespace s2
 
         dfs2(k + 1, now);
         for (int i = 1; i <= n; ++i)
-            if (mp[k][i] && (now & (1 << (i - 1))) == 0)
-                dfs2(k + 1, now | (1 << (i - 1)));
+        {
+            int t = 1 << (n - i);
+            if ((a[k] & t) && (now & t) == 0)
+                dfs2(k + 1, now | t);
+        }
     }
 
     int solve()
@@ -113,6 +114,42 @@ namespace s2
         dfs2(n2 + 1, 0);
 
         return ans;
+    }
+}
+
+namespace s3
+{
+    int mem[N][M];
+
+    int dfs(int k, int now)
+    {
+        if (g[now] > m)
+            return 0;
+        if (k > n)
+        {
+            if (g[now] == m)
+                return 1;
+            return 0;
+        }
+
+        if (mem[k][now] != -1)
+            return mem[k][now];
+
+        int res = dfs(k + 1, now);
+        for (int i = 1; i <= n; ++i)
+        {
+            int t = 1 << (n - i);
+            if ((a[k] & t) && (now & t) == 0)
+                res += dfs(k + 1, now | t);
+        }
+
+        return mem[k][now] = res;
+    }
+
+    int solve()
+    {
+        memset(mem, -1, sizeof mem);
+        return dfs(1, 0);
     }
 }
 
@@ -137,10 +174,10 @@ int main()
         {
             scanf("%s", line);
             for (int j = 1; j <= n; ++j)
-                mp[i][j] = (line[j - 1] == 'H');
+                a[i] = a[i] << 1 | (line[j - 1] == 'H');
         }
 
-        printf("%d\n", s1::solve());
+        printf("%d\n", s3::solve());
 
         n = read(), m = read();
     }
