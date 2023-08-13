@@ -5,18 +5,6 @@ using namespace std;
 const int N = 21;
 const int M = (1 << 20) + 1;
 
-int read()
-{
-    int num = 0, flag = 1;
-    char ch = getchar();
-    for (; !isdigit(ch); ch = getchar())
-        if (ch == '-')
-            flag = -1;
-    for (; isdigit(ch); ch = getchar())
-        num = (num << 3) + (num << 1) + ch - '0';
-    return num * flag;
-}
-
 int n, m;
 int a[N];
 
@@ -67,7 +55,7 @@ namespace s2
             return;
         if (k > n2)
         {
-            int r = now ^ (1 << n) - 1;
+            int r = now ^ ((1 << n) - 1);
             if (g[now] == m)
                 ++f[m][0];
             for (int t = r; t; t = (t - 1) & r)
