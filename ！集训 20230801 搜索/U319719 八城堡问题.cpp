@@ -153,6 +153,84 @@ namespace s3
     }
 }
 
+namespace s4
+{
+    int dp[N][M];
+
+    int solve()
+    {
+        memset(dp, 0, sizeof dp);
+        for (int i = 0; i < (1 << n); ++i)
+            if (g[i] == m)
+                dp[n + 1][i] = 1;
+
+        for (int i = n; i >= 2; --i)
+        {
+            for (int j = 0; j < (1 << n); ++j)
+            {
+                if (g[j] > m)
+                    dp[i][j] = 0;
+                else
+                {
+                    dp[i][j] = dp[i + 1][j];
+                    for (int r = 1; r <= n; ++r)
+                    {
+                        int t = 1 << (n - r);
+                        if ((a[i] & t) && (j & t) == 0)
+                            dp[i][j] += dp[i + 1][j | t];
+                    }
+                }
+            }
+        }
+
+        int res = dp[2][0];
+        for (int r = 1; r <= n; ++r)
+        {
+            int t = 1 << (n - r);
+            if (a[1] & t)
+                res += dp[2][t];
+        }
+        return res;
+    }
+}
+
+namespace s5
+{
+    int dp[M];
+
+    int solve()
+    {
+        memset(dp, 0, sizeof dp);
+        for (int i = 0; i < (1 << n); ++i)
+            if (g[i] == m)
+                dp[i] = 1;
+
+        for (int i = n; i >= 2; --i)
+        {
+            for (int j = 0; j < (1 << n); ++j)
+            {
+                if (g[j] > m)
+                    continue;
+                for (int r = 1; r <= n; ++r)
+                {
+                    int t = 1 << (n - r);
+                    if ((a[i] & t) && (j & t) == 0 && (j | t) != j)
+                        dp[j] += dp[j | t];
+                }
+            }
+        }
+
+        int res = dp[0];
+        for (int r = 1; r <= n; ++r)
+        {
+            int t = 1 << (n - r);
+            if (a[1] & t)
+                res += dp[t];
+        }
+        return res;
+    }
+}
+
 int main()
 {
     for (int i = 0; i < M; ++i)
@@ -166,7 +244,7 @@ int main()
         }
     }
 
-    n = read(), m = read();
+    scanf("%d%d", &n, &m);
     while (n && m)
     {
         char line[N];
@@ -177,9 +255,9 @@ int main()
                 a[i] = a[i] << 1 | (line[j - 1] == 'H');
         }
 
-        printf("%d\n", s3::solve());
+        printf("%d\n", s5::solve());
 
-        n = read(), m = read();
+        scanf("%d%d", &n, &m);
     }
     return 0;
 }
