@@ -221,16 +221,8 @@ namespace s5
 
 int main()
 {
-    for (int i = 0; i < M; ++i)
-    {
-        int t = i;
-        while (t)
-        {
-            if (t & 1)
-                ++g[i];
-            t >>= 1;
-        }
-    }
+    for (int i = 1; i < M; ++i)
+        g[i] = g[i & (i - 1)] + 1;
 
     scanf("%d%d", &n, &m);
     while (n && m)
