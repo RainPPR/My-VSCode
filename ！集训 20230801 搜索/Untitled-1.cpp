@@ -7,23 +7,21 @@ typedef long double ld;
 const int N = 21;
 
 ld wide;
-int n, w[N];
+int n, node[N];
 
 int son[N][2];
 ld ans, lest, rest;
 
 void eval(int root, ld pos)
 {
-    if (pos < lest)
-        lest = pos;
-    if (pos > rest)
-        rest = pos;
+    lest = min(lest, pos);
+    rest = max(rest, pos);
 
     int l = son[root][0], r = son[root][1];
     if (!l && !r)
         return;
 
-    ld ldis = w[r] / ld(w[l] + w[r]);
+    ld ldis = node[r] / ld(node[l] + node[r]);
     eval(l, pos - ldis);
     eval(r, pos - ldis + 1);
 }
@@ -51,12 +49,10 @@ void dfs(int now, int cnt)
 
             int root = cnt + 1;
 
-            w[root] = w[l] + w[r];
+            node[root] = node[l] + node[r];
             son[root][0] = l, son[root][1] = r;
 
             dfs(now | (1 << (l - 1)) | (1 << (r - 1)), root);
-
-            son[root][0] = 0, son[root][1] = 0;
         }
     }
 }
@@ -73,8 +69,9 @@ int main()
     {
         cin >> wide >> n;
         for (int i = 1; i <= n; ++i)
-            cin >> w[i];
+            cin >> node[i];
 
+        memset(son, 0, sizeof son);
         ans = -1;
         dfs(0, n);
 
