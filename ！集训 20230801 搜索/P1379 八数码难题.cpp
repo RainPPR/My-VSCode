@@ -9,6 +9,9 @@ const int dy[4] = {0, -1, 1, 0};
 
 const char op[4] = {'u', 'l', 'r', 'd'};
 
+string gend = "123804765";
+int tar[9] = {0, 1, 3, 5, 8, 7, 6, 3};
+
 int f(string state)
 {
 	int res = 0;
@@ -16,14 +19,14 @@ int f(string state)
 	{
 		if (state[i] != '0')
 		{
-			int t = state[i] - '1';
+			int t = tar[state[i] - '1'];
 			res += abs(i / 3 - t / 3) + abs(i % 3 - t % 3);
 		}
 	}
 	return res;
 }
 
-string a_star(string start, string end = "123804765")
+string a_star(string start, string end = gend)
 {
 	unordered_map<string, int> dist;
 	unordered_map<string, pair<char, string>> prev;
