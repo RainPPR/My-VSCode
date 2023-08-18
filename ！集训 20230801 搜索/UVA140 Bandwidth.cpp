@@ -6,11 +6,10 @@ const int N = 26;
 
 unordered_set<int> G[N];
 
-int ans = 2e9;
-string path;
-
 int n;
-int pos[N];
+
+string path;
+int ans, pos[N];
 
 void dfs(string now, int res)
 {
@@ -26,7 +25,7 @@ void dfs(string now, int res)
         if (pos[i] || G[i].size() == 0)
             continue;
 
-        int length = -1;
+        int length = 0;
         for (int j : G[i])
         {
             if (!pos[j])
@@ -57,11 +56,10 @@ int main()
     {
         line += ';';
 
-        n = 0;
-        ans = 2e9;
         for (int i = 0; i < N; ++i)
             G[i].clear();
 
+        n = 0;
         int ve[N] = {0};
         for (int i = 0; i < line.size(); ++i)
         {
@@ -84,7 +82,8 @@ int main()
             }
         }
 
-        dfs("", -1);
+        ans = n - 1;
+        dfs("", 0);
 
         for (char i : path)
             cout << i << " ";
