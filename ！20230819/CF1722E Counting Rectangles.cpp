@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 
+#define int long long
+
 #define rr read()
 
 using namespace std;
@@ -20,7 +22,7 @@ inline int read()
 
 int s[N][N];
 
-int main()
+signed main()
 {
     int T = rr;
     while (T--)
@@ -31,7 +33,7 @@ int main()
         for (int i = 1; i <= n; ++i)
         {
             int x = rr, y = rr;
-            s[x][y] = x * y;
+            s[x][y] += x * y;
         }
 
         for (int x = 1; x <= 1000; ++x)
@@ -41,7 +43,7 @@ int main()
         for (int i = 1; i <= q; ++i)
         {
             int x0 = rr, y0 = rr, x1 = rr, y1 = rr;
-            printf("%d\n", s[x1][y1] - s[x0 - 1][y1] - s[x1][y0 - 1] + s[x0 - 1][y0 - 1]);
+            printf("%lld\n", s[x1 - 1][y1 - 1] - s[x0][y1 - 1] - s[x1 - 1][y0] + s[x0][y0]);
         }
     }
     return 0;
