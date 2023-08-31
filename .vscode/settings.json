@@ -2,6 +2,9 @@
 	"git.enableSmartCommit": true,
 	"git.autofetch": true,
 	"files.autoGuessEncoding": true,
+    "[markdown]": {
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+    },
 	"code-runner.fileDirectoryAsCwd": true,
 	"code-runner.runInTerminal": true,
 	"code-runner.saveAllFilesBeforeRun": true,
@@ -18,5 +21,10 @@
 	],
     "files.encoding": "gbk",
     "editor.minimap.showSlider": "always",
-    "editor.minimap.enabled": false
+    "editor.minimap.enabled": false,
+    "editor.unicodeHighlight.invisibleCharacters": false,
+    "editor.unicodeHighlight.allowedLocales": {
+        "zh-hant": true
+    },
+    "editor.fontFamily": "Consolas, '霞鹜文楷等宽 TC'",
 }
