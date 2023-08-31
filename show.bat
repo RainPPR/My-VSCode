@@ -1,3 +1,5 @@
+:: ÖÆ×÷£ºRainPPR
+
 @echo off
 cd .git
 cd objects

@@ -1,3 +1,5 @@
+:: ÖÆ×÷£ºRainPPR
+
 @echo off
 git config --global http.sslverify false
 git config --global user.name "RainPPR"
