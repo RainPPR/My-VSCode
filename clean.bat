@@ -5,11 +5,6 @@ for /f "usebackq" %%a in (`dir /s /a /w /b ^| find /v /c ""`) do set "size_befor
 
 git push --force --verbose --dry-run
 git push --force
-
-git add .
-git commit -m "清理文件夹"
-git push -u origin master -f
-
 git reflog expire --expire=now --all
 git gc --prune=now
 
