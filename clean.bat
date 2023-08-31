@@ -5,11 +5,16 @@ for /f "usebackq" %%a in (`dir /s /a /w /b ^| find /v /c ""`) do set "size_befor
 
 git push --force --verbose --dry-run
 git push --force
+
+del /f /s /q *.lnk
+del /f /s /q *.tmp
+del /f /s /q *.log
+del /f /s /q *.dmp
+
 git reflog expire --expire=now --all
 git gc --prune=now
 
 for /f "usebackq" %%a in (`dir /s /a /w /b ^| find /v /c ""`) do set "size_after=%%a"
-
 set /a size_difference=size_after-size_before
 
 echo.
