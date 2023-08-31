@@ -1,4 +1,5 @@
 :: ÖÆ×÷£ºRainPPR
+chcp 437
 
 @echo off
 git config --global http.sslverify false
