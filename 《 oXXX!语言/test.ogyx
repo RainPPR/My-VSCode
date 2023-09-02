@@ -1,0 +1,52 @@
+{ vars
+    a: int
+    b: int
+    c: array[int, 1..2]
+    d: int
+}
+# 以上变量默认值均为 0
+# 变量名只可是英文字母
+
+# gyxsay 语句可以输出一个数字，随后跟一个空格
+:gyxsay 2
+# 输出2和一个空格（以下不再提到空格）
+
+# set 语句可以为变量赋值
+# 运算符只支持加减号即可
+:set a, 1
+:set b, 2
+:gyxsay a + b
+# 上一条语句将输出3
+
+# 以下的判断语句均使用以下的格式：
+# 操作符，表达式，表达式
+# 例如 eq, a, 1 即 C 语言中 a == 1
+# 所有操作符包括: lt（<）；gt（>）；le（<=）；ge（>=）；eq（==）；neq（!=）
+
+# 为了 xx Gyx，因此他将 if 改成了 gif
+{ gif eq, a, 1
+    :set d, 3
+    :gyxsay 1
+}
+# 输出 1
+# 以上是 gif 语句，无需支持 else
+
+# 为了 yy Gyx，因此他将 for 改成了 gor
+# gor i = 1 to d 如下
+{ gor i, 1, d
+    :gyxsay i
+}
+# 输出 1 2 3
+
+# 为了 zz Gyx，因此他将 while 改成了 ghile
+:set i, 1
+{ ghile le, i, 2
+    :gyxsay i
+    :set c[i], i + 1
+    :gyxsay c[i]
+    :set i, i + 1
+}
+# 输出 1 2 2 3
+
+# 数组不会出现嵌套，即只会有 a[i]、a[i + 2]而不会有类似于 a[i + b[i]] 这样的
+# CYaRon语的最后一行，一定是一个换行
