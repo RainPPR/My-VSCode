@@ -34,7 +34,7 @@ void add(int u, int v)
     h[u] = idx++;
 }
 
-void add(const _g &t)
+void add(_g t)
 {
     add(t.u, t.v);
 }
@@ -42,7 +42,9 @@ void add(const _g &t)
 int low[N], dfn[N];
 
 int cnt, k;
+
 int vis[N], grp[N];
+int ins[N];
 
 struct stk
 {
@@ -84,7 +86,7 @@ void tarjan(int u)
     int v;
     do
     {
-        v = s.top(), vis[v] = 0, grp[v] = cnt;
+        v = s.top(), vis[v] = 0, grp[v] = cnt, ++ins[cnt];
         s.pop();
     } while (u != v);
 }
@@ -95,12 +97,48 @@ void write(int a, int b)
 }
 
 int in[N];
+int vis2[N];
+
+int uh[N], ue[M], une[M], uidx;
+
+void uadd(int u, int v)
+{
+    ue[uidx] = v;
+    une[uidx] = uh[u];
+    uh[u] = uidx++;
+}
+
+int res;
+int cc[N];
+
+void dfs(int u)
+{
+    if (in[u] == 0)
+        ++res;
+
+    cc[u] = ins[u];
+    vis2[u] = true;
+
+    --cnt;
+    for (int i = uh[u]; i != -1; i = une[i])
+    {
+        int v = ue[i];
+        if (vis2[v])
+            continue;
+        in[v] = 1, dfs(v);
+        cc[u] += cc[v];
+    }
+}
 
 int main()
 {
     memset(h, -1, sizeof h);
+    memset(uh, -1, sizeof uh);
 
     n = rr, m = rr;
+    if (n == 1 && m == 0)
+        write(1, 1), exit(0);
+
     for (int i = 1; i <= m; ++i)
         add(g[i] = {rr, rr});
 
@@ -110,16 +148,20 @@ int main()
 
     for (int i = 1; i <= m; ++i)
         if (grp[g[i].v] != grp[g[i].u])
-            ++in[grp[g[i].v]];
+            ++in[grp[g[i].v]], uadd(grp[g[i].u], grp[g[i].v]);
 
-    int res = 0;
-    for (int i = 1; i <= cnt; ++i)
-        res += in[i] == 0;
+    int t = cnt, k = 0;
 
-    if (res == n)
-        --res;
-    cerr << res << " in " << n << endl;
-    write(n - res, n);
+    for (int i = 1; i <= t; ++i)
+    {
+        if (!in[i])
+        {
+            dfs(i);
+            if (cc[i] == 1)
+                k = 1;
+        }
+    }
 
+    write(n - res + k, n);
     return 0;
 }
