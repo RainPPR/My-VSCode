@@ -2,6 +2,7 @@
 
 #define rr read()
 #define rl readline()
+#define rw readword()
 
 #define ww(x) write(x)
 #define wl(x) writeline(x)
@@ -27,6 +28,22 @@ inline string readline()
     while (ch <= 13)
         ch = getchar();
     while (ch > 13)
+        str += ch, ch = getchar();
+    return str;
+}
+
+inline bool iswordsep(const char &ch)
+{
+    return ch <= ' ';
+}
+
+inline string readword()
+{
+    string str;
+    char ch = getchar();
+    while (iswordsep(ch))
+        ch = getchar();
+    while (!iswordsep(ch))
         str += ch, ch = getchar();
     return str;
 }
