@@ -9,6 +9,16 @@
 
 using namespace std;
 
+inline bool islinesep(const char &ch)
+{
+    return ch == '\n' || ch == '\r';
+}
+
+inline bool iswordsep(const char &ch)
+{
+    return ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r';
+}
+
 inline int read()
 {
     int num = 0, flag = 1;
@@ -25,16 +35,11 @@ inline string readline()
 {
     string str;
     char ch = getchar();
-    while (ch <= 13)
+    while (islinesep(ch))
         ch = getchar();
-    while (ch > 13)
+    while (!islinesep(ch))
         str += ch, ch = getchar();
     return str;
-}
-
-inline bool iswordsep(const char &ch)
-{
-    return ch <= ' ';
 }
 
 inline string readword()
@@ -67,7 +72,7 @@ inline void write(int x)
 
 inline void writeline(string str)
 {
-    while (str.back() <= 13)
+    while (islinesep(str.back()))
         str.pop_back();
     for (char ch : str)
         putchar(ch);
