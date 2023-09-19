@@ -1,4 +1,12 @@
+function todetails() {
+    const details = document.querySelectorAll("details");
+    details.forEach((detail) => {
+        detail.setAttribute("open", true);
+    });
+}
 function toprint() {
+    // details
+    todetails();
     // zoom
     var zm = 100;
     document.body.style.zoom = String(zm) + '%';
@@ -20,11 +28,5 @@ function toprint() {
     cont.style.border = 'none';
     cont.style.left = '-9px';
     cont.style.top = '-60px';
-    // details
-    const details = document.querySelectorAll("details");
-    details.forEach((detail) => {
-        detail.setAttribute("open", true);
-    });
 }
-// event
-function rdprint() { toprint(); setTimeout( function(){ if (!confirm("请等待网页公式加载完毕...")) return; setTimeout('window.print();', 150); }, 50); }
+function rdprint() { toprint(); setTimeout(function () { if (!confirm("请等待网页公式加载完毕...")) return; window.print(); }, 100); }
