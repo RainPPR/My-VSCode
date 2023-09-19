@@ -22,4 +22,4 @@ function toprint() {
 	cont.style.top = '-60px';
 }
 // event
-function rdprint() { toprint(); setTimeout( function(){ if (!confirm("请等待网页公式加载完毕...")) return; setTimeout('window.print(); location.reload();', 150); }, 50); }
+function rdprint() { toprint(); setTimeout( function(){ if (!confirm("请等待网页公式加载完毕...")) return; setTimeout('window.print();', 150); }, 50); }
