@@ -1,9 +1,4 @@
-function todetails() {
-    const details = document.querySelectorAll("details");
-    details.forEach((detail) => {
-        detail.setAttribute("open", true);
-    });
-}
+function todetails() { const details = document.querySelectorAll("details"); details.forEach((detail) => { detail.setAttribute("open", true); }); }
 function toprint() {
     // details
     todetails();
