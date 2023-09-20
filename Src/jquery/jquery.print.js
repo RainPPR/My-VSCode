@@ -222,7 +222,8 @@
         var $styles = $("");
         if (options.globalStyles) {
             // Apply the stlyes from the current sheet to the printed page
-            $styles = $("style, link, meta, base, title");
+            // $styles = $("style, link, meta, base, title"); By RainPPR
+            $styles = $("style, link, meta, base, title, script");
         } else if (options.mediaPrint) {
             // Apply the media-print stylesheet
             $styles = $("link[media=print]");
