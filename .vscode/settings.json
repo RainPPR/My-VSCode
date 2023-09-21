@@ -27,4 +27,16 @@
         "zh-hant": true
     },
     "editor.fontFamily": "Consolas, '霞鹜文楷等宽 TC'",
+    "C_Cpp.default.compilerPath": "",
+    "C_Cpp.vcFormat.indent.accessSpecifiers": true,
+    "C_Cpp.vcFormat.newLine.closeBraceSameLine.emptyFunction": true,
+    "C_Cpp.vcFormat.newLine.closeBraceSameLine.emptyType": true,
+    "C_Cpp.vcFormat.space.betweenEmptyBraces": true,
+    "C_Cpp.vcFormat.space.betweenEmptyParameterListParentheses": true,
+    "C_Cpp.vcFormat.space.betweenEmptySquareBrackets": true,
+    "C_Cpp.vcFormat.space.pointerReferenceAlignment": "right",
+    "C_Cpp.vcFormat.space.removeAroundUnaryOperator": false,
+    "C_Cpp.autocompleteAddParentheses": true,
+    "C_Cpp.vcFormat.indent.gotoLabels": "none",
+    "C_Cpp.vcFormat.indent.lambdaBracesWhenParameter": false,
 }
