@@ -7,15 +7,10 @@ const int N = 1e6 + 10;
 int euler_phi(int n)
 {
     int ans = n;
-    for (int i = 2; i * i <= n; i++)
-    {
-        if (n % i == 0)
-        {
-            ans = ans / i * (i - 1);
-            while (n % i == 0)
-                n /= i;
-        }
-    }
+    for (int i = 2; i * i <= n; i++) { if (n % i == 0) {
+        ans = ans / i * (i - 1);
+        while (n % i == 0) n /= i;
+    }}
     return n > 1 ? ans / n * (n - 1) : ans;
 }
 
