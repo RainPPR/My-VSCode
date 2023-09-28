@@ -14,6 +14,8 @@
 
 #define rr read()
 #define ur uread()
+#define _rr(x) x = read()
+#define _ur(x) x = uread()
 
 using namespace std;
 
@@ -31,14 +33,13 @@ signed read() {
     for (; !isdigit(ch); ch = getchar()) if (ch == '-') flag = -1;
     for (; isdigit(ch); ch = getchar()) num = num * 10 + ch - '0';
     return num * flag;
-}
-
-unsigned uread() {
+} unsigned uread() {
     unsigned num = 0; char ch = getchar();
     while(!isdigit(ch)) ch = getchar();
     while(isdigit(ch)) num = num * 10 + ch - '0', ch = getchar();
     return num;
 }
+
 
 signed main() {
     // freopen("xxx.in", "r", stdin);
