@@ -1,0 +1,32 @@
+Windows:
+
+wsl --install
+wsl --set-default-version 2
+
+Linux:
+
+$ sudo su
+# cp /etc/apt/sources.list /etc/apt/sources.list.bak
+# vim /etc/apt/sources.list
+...（按 i 之后将上文的源右键粘贴进去，编辑完后按 Esc，再输入 :wq 和回车）
+
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse
+deb http://security.ubuntu.com/ubuntu/ jammy-security main restricted universe multiverse
+
+# apt update
+# apt upgrade -y
+# apt install language-pack-zh-hans -y
+# apt install fontconfig -y
+# apt install fonts-noto-cjk fonts-wqy-microhei fonts-wqy-zenhei -y
+# dpkg-reconfigure locales
+# apt install manpages-zh
+# sed -i 's|/usr/share/man|/usr/share/man/zh_CN|g' /etc/manpath.config
+# apt install -y build-essential vim python3 pip python3-pip
+# apt install -y gnome-system-monitor
+# apt install -y ssh
+# apt install -y nautilus
+# apt install -y ./devc/raylib_4.2-dev-1_ubuntu20.04_amd64.deb
+# apt install -y ./devc/raylib-drawing_1.2-1_amd64.ubuntu20.04.deb
+# apt install -y ./devc/redpanda-cpp_2.24-1_amd64.ubuntu20.04.deb
