@@ -17,11 +17,11 @@ deb http://security.ubuntu.com/ubuntu/ jammy-security main restricted universe m
 
 # apt update
 # apt upgrade -y
-# apt install language-pack-zh-hans -y
-# apt install fontconfig -y
-# apt install fonts-noto-cjk fonts-wqy-microhei fonts-wqy-zenhei -y
+# apt install -y language-pack-zh-hans
+# apt install -y fontconfig
+# apt install -y fonts-noto-cjk fonts-wqy-microhei fonts-wqy-zenhei
 # dpkg-reconfigure locales
-# apt install manpages-zh
+# apt install -y manpages-zh
 # sed -i 's|/usr/share/man|/usr/share/man/zh_CN|g' /etc/manpath.config
 # apt install -y build-essential vim python3 pip python3-pip
 # apt install -y gnome-system-monitor
@@ -30,3 +30,9 @@ deb http://security.ubuntu.com/ubuntu/ jammy-security main restricted universe m
 # apt install -y ./devc/raylib_4.2-dev-1_ubuntu20.04_amd64.deb
 # apt install -y ./devc/raylib-drawing_1.2-1_amd64.ubuntu20.04.deb
 # apt install -y ./devc/redpanda-cpp_2.24-1_amd64.ubuntu20.04.deb
+# apt install -y qt5*
+# apt-get remove --purge -y kvantum*
+# apt-get remove --purge -y qt5-assistant
+# apt-get remove --purge -y qt5ct
+# apt autoremove -y
+# apt full-upgrade -y
