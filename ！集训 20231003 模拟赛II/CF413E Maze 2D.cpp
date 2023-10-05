@@ -48,7 +48,6 @@ int solve(int u, int v) {
 }
 
 int main() {
-	freopen("in.txt", "r", stdin);
 	n = rr, q = rr;
 	a = " " + rl; a += rl;
 	cerr << a << endl;

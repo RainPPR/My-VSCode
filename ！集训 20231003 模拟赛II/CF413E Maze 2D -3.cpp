@@ -20,49 +20,57 @@ inline string readline() {
 }
 
 const int N = 4e5 + 10;
+const int INF = 0x3f3f3f3f;
 
 int n, q;
 string a[2];
 
-int tolast[2][N];
+int _min(const int a, const int b) { return a < b ? a : b; }
+int _min(const int a, const int b, const int c) { return _min(a, _min(b, c)); }
 
-//int solve(int l, int r) {
-//	int lt = l > n ? l - n : l, lrow = (l > n);
-//	int rt = r > n ? r - n : r, rrow = (r > n);
-//	if (lt == rt) return lrow != rrow;
-//	else if (lt > rt) swap(l, r), swap(lt, rt), swap(lrow, rrow);
-//	int res = 0;
-//	while (lt < rt) {
-//		if (a[lrow][lt + 1] == 'X') lrow = 1 - lrow, ++res;
-//		if (a[lrow][lt] == 'X') { return -1; }
-//		++lt, ++res;
-//	} if (lt != rt) return -1;
-//	return res + (lrow != rrow);
-//}
+struct node {
+	int d1, d2, d3, d4;
+	void debug(char sep = '\n') { fprintf(stderr, "%d %d %d %d%c", d1, d2, d3, d4, sep); }
+} s[3 * N]; node operator +(node x, node y) {
+	node res = {_min(INF, x.d1 + y.d1, x.d2 + y.d3) + 1, _min(INF, x.d1 + y.d2, x.d2 + y.d4) + 1, _min(INF, x.d4 + y.d3, x.d3 + y.d1) + 1, _min(INF, x.d4 + y.d4, x.d3 + y.d2) + 1};
+	return res;
+} void build(int k, int l, int r) {
+	if (l == r) {
+		s[k] = {INF, INF, INF, INF};
+		if (a[0][l] == '.') s[k].d1 = 0;
+		if (a[1][l] == '.') s[k].d4 = 0;
+		if (a[0][l] == '.' && a[1][l] == '.') s[k].d2 = s[k].d3 = 1;
+		return;
+	} int mid = l + r >> 1;
+	build(k * 2, l, mid), build(k * 2 + 1, mid + 1, r);
+	s[k] = s[k * 2] + s[k * 2 + 1];
+} node query(int k, int l, int r, int p, int q) {
+	if (l >= p && r <= q) return s[k];
+	int mid = l + r >> 1;
+	if (q <= mid) return query(k * 2, l, mid, p, q);
+	if (p > mid) return query(k * 2 + 1, mid + 1, r, p, q);
+	return query(k * 2, l, mid, p, q) + query(k * 2 + 1, mid + 1, r, p, q);
+}
 
 int solve(int l, int r) {
-	int lt = l > n ? l - n : l, lrow = (l > n);
-	int rt = r > n ? r - n : r, rrow = (r > n);
-	if (lt == rt) return lrow != rrow;
-	else if (lt > rt) swap(l, r), swap(lt, rt), swap(lrow, rrow);
-	int res = 0; while (lt < rt) {
-		if (a[lrow][lt + 1] == 'X') lrow = 1 - lrow, ++res;
-		if (a[lrow][lt] == 'X') { return -1; }
-		res += tolast[lrow][lt] - lt;
-		lt = tolast[lrow][lt];
-	} return res - (lt - rt) + (lrow != rrow);
+	int x = l > n ? l - n : l;
+	int y = r > n ? r - n : r;
+	if (x > y) tie(l, r, x, y) = make_tuple(r, l, y, x);
+	node now = query(1, 1, n, x, y);
+	int res = INF, state = (l > n) + ((r > n) << 1);
+	switch(state) {
+		case 0: res = now.d1; break;
+		case 1: res = now.d3; break;
+		case 2: res = now.d2; break;
+		case 3: res = now.d4; break;
+		default: return -1;
+	} return res >= INF ? -1 : res;
 }
 
 int main() {
-	freopen("in.txt", "r", stdin);
 	n = rr, q = rr;
 	a[0] = " " + rl, a[1] = " " + rl;
-	int lt = n + 1, rt = n + 1;
-	for (int i = n; i; --i) {
-		if (a[0][i] == 'X') tolast[0][i] = -1, lt = i;
-		else tolast[0][i] = lt - 1;
-		if (a[1][i] == 'X') tolast[1][i] = -1, rt = i;
-		else tolast[1][i] = rt - 1;
-	} while (q--) printf("%d\n", solve(rr, rr));
+	build(1, 1, n);
+	while (q--) printf("%d\n", solve(rr, rr));
 	return 0;
 }
