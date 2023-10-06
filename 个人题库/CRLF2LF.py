@@ -7,7 +7,7 @@ def convert_line_endings():
     # Loop through all the files in the current directory
     for file_name in os.listdir(current_dir):
         # Check if the file is a .in or .out file
-        if file_name.endswith(".in") or file_name.endswith(".out"):
+        if file_name.endswith(".in") or file_name.endswith(".out") or file_name.endswith(".ans"):
             # Open the file in binary mode
             with open(file_name, "rb") as file:
                 # Read the contents of the file

@@ -40,7 +40,6 @@ signed read() {
     return num;
 }
 
-
 signed main() {
     // freopen("xxx.in", "r", stdin);
     // freopen("xxx.out", "w", stdout);
