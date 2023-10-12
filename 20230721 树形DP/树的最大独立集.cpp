@@ -15,20 +15,12 @@ void add(int u, int v)
     h[u] = idx++;
 }
 
-void dfs(int u, int fa)
-{
-    for (int i = h[u] ; i != -1 ; i = ne[i])
-    {
-        int v = e[i];
-        if (v == fa)
-            continue;
-        
+void dfs(int u, int fa) {
+    for (int i = h[u] ; i != -1 ; i = ne[i]) {
+        int v = e[i]; if (v == fa) continue;
         dfs(v, u);
-
-        dp[u][0] += max(dp[v][0], dp[v][1]);
-        dp[u][1] += dp[v][0];
-    }
-    ++dp[u][1];
+        dp[u][0] += max(dp[v][0], dp[v][1]), dp[u][1] += dp[v][0];
+    } ++dp[u][1];
 }
 
 int main()
