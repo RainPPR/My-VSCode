@@ -4,6 +4,7 @@ using namespace std;
 
 using ll = long long;
 using pli = pair<long long, int>;
+using pil = pair<int, long long>;
 
 #define rr read()
 inline ll read() {
@@ -30,32 +31,41 @@ const int M = 1e5 + 10;
 
 struct obj {
     ll a, b;
-    ll up;
+    ll up, c;
 } o[M];
 
+vector<ll> e;
+vector<ll> ans;
+
 int main() {
-    // open(a);
+    open(paradise);
     int T = rr, op = rr;
     while (T--) {
         int m = rr, q = rr;
         // clear objects
         int idx = 0; for (int i = 1; i <= m; ++i) {
-            ++idx, o[idx].a = rr, o[idx].b = rr;
+            ++idx, o[idx].a = rr, o[idx].b = rr; o[idx].c = 0;
             if (idx > 1 && (1.0 * o[idx].b / o[idx].a) >= (1.0 * o[idx - 1].b / o[idx - 1].a)) --idx;
         } m = idx;
         // calculate up to next
         o[m].up = 4e18; for (int i = 1; i < m; ++i) o[i].up = o[i + 1].a / o[i].a;
         // clear query
-        vector<pli> e; for (int i = 0; i < q; ++i) e.push_back({rr, i});
-        sort(e.begin(), e.end());
+        e.clear(); for (int i = 0; i < q; ++i) e.push_back(rr);
         // calculate
-        idx = 0;
-        // log error
-        for (int i = 1; i <= m; ++i) printf("OBJ: %lld %lld %lld\n", o[i].a, o[i].b, o[i].up);
-        for (int i = 0; i < q; ++i) printf("QUE: %lld %d\n", e[i].first, e[i].second);
-        printf("\n");
+        ans.clear(); ans.push_back(0);
+        for (ll i = 1; i < e.back(); ++i) {
+            ll use = 0; for (int i = 1; i <= m; ++i) {
+                use += o[i].b;
+                if (++o[i].c < o[i].up) break;
+                use -= o[i].b * o[i].up;
+                o[i].c = 0;
+            } ans.push_back(ans.back() + use);
+        }
+        // output
+        for (ll i = 1; i < ans.size(); ++i) ans[i] += ans[i - 1];
+        for (int i = 0; i < q; ++i) printf("%lld\n", ans[e[i] - 1]);
     }
-    // close();
+    close();
     return 0;
 }
 

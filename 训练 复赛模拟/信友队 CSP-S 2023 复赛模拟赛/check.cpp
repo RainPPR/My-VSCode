@@ -6,8 +6,8 @@ using namespace std;
 
 #define cmd(x) system(string(x).c_str())
 
-const string P = "firstsnow";
-const int L = 1, R = 20;
+const string P = "paradise";
+const int L = 1, R = 2;
 
 signed main() {
     freopen("error.txt", "w", stderr);
