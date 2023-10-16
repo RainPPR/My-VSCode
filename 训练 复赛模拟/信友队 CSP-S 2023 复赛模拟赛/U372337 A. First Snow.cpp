@@ -35,34 +35,20 @@ using ll = long long;
 const int N = 510;
 
 int mp[N][N];
-bitset<N> l[N], r[N], u[N], d[N];
+bitset<N> sl[N][N], sr[N][N], su[N][N], sd[N][N];
+
+#define get(x, i, j) x[int(i)][int(j)]
 
 int main() {
-    int n = rr, op = rr;
-    for (int i = 0; i < n; ++i) for (int j = 0; j < n; ++j) mp[i][j] = gd - '0';
-    // for (int i = 0; i < n; ++i) {
-    //     for (int j = 1; j < n; ++j) l[j] = l[j - 1] << 1, l[j][0] = mp[i][j - 1], \
-    //                                 u[j] = u[j - 1] << 1, u[j][0] = mp[j - 1][i];
-    //     for (int j = n - 2; ~j; --j) r[j] = r[j + 1] << 1, r[j][0] = mp[i][j + 1], \
-    //                                  d[j] = d[j + 1] << 1, d[j][0] = mp[j + 1][i];
-    // }
-    // (x-a,y-b) ... (x-b,y+a)
-    //          (x,y)
-    // (x+b,y-a) ... (x+a,y+b)
-    ll res = 0;
-    for (float x = 0.5; x + 0.5 <= n; x += 0.5) {
-        bool isi = x == int(x);
-        float dn = isi ? 1 : 0.5, u1 = min(x, n - x - 1);
+    int n = rr, op = rr; for (int i = 0; i < n; ++i) for (int j = 0; j < n; ++j) mp[i][j] = gd - '0';
+    for (int i = 0; i < n; ++i) {
+        for (int j = 1; j < n; ++j) sl[i][j] = sl[i][j - 1] << 1, sl[i][j][0] = mp[i][j - 1], su[j][i] = su[j - 1][i] << 1, su[j][i][0] = mp[j - 1][i];
+        for (int j = n - 2; ~j; --j) sr[i][j] = sr[i][j + 1] << 1, sr[i][j][0] = mp[i][j + 1], sd[j][i] = sd[j + 1][i] << 1, sd[j][i][0] = mp[j + 1][i];
+    } ll res = 0; for (float x = 0.5; x + 0.5 <= n; x += 0.5) {
+        float u1 = min(x, n - x - 1), dn = x == int(x) ? 1 : 0.5;
         for (float y = dn; y + 0.5 <= n; y += 1) {
             float u2 = min(y, n - y - 1), up = min(u1, u2);
-            if (isi) for (float b = dn; b <= up; b += 1) {
-                int a = 0;
-                if (mp[gx(0)][gy(0)] & mp[gx(1)][gy(1)] & mp[gx(2)][gy(2)] & mp[gx(3)][gy(3)]) ++res;
-            } for (float a = dn; a <= up; a += 1) {
-                for (float b = dn; b <= up; b += 1) {
-                    if (mp[gx(0)][gy(0)] & mp[gx(1)][gy(1)] & mp[gx(2)][gy(2)] & mp[gx(3)][gy(3)]) ++res;
-                }
-            }
+            for (float b = dn; b <= up; b += 1) res += (get(sl, x + b, y + dn) & get(sr, x - b, y - dn) & get(su, x + dn, y - b) & get(sd, x - dn, y + b)).count();
         }
     } printf("%lld\n", res);
     return 0;

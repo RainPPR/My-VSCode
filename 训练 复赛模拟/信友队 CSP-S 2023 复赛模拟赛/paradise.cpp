@@ -38,7 +38,7 @@ vector<ll> e;
 vector<ll> ans;
 
 int main() {
-    open(paradise);
+    // open(paradise);
     int T = rr, op = rr;
     while (T--) {
         int m = rr, q = rr;
@@ -65,7 +65,7 @@ int main() {
         for (ll i = 1; i < ans.size(); ++i) ans[i] += ans[i - 1];
         for (int i = 0; i < q; ++i) printf("%lld\n", ans[e[i] - 1]);
     }
-    close();
+    // close();
     return 0;
 }
 
