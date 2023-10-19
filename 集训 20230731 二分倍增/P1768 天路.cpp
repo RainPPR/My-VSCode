@@ -20,43 +20,19 @@ void add(int u, int v, double x)
     h[u] = idx++;
 }
 
-double dis[N];
-bool vis[N];
-
-bool dfs_spfa(int u)
-{
-    if (vis[u])
-        return true;
+double dis[N], vis[N];
+bool dfs_spfa(int u) {
+    if (vis[u]) return true;
     vis[u] = true;
-    for (int i = h[u]; i != -1; i = ne[i])
-    {
-        if (dis[e[i]] > dis[u] + w[i])
-        {
-            dis[e[i]] = dis[u] + w[i];
-            if (dfs_spfa(e[i]))
-            {
-                vis[u] = false;
-                return true;
-            }
-        }
-    }
-    vis[u] = false;
-    return false;
-}
-
-bool check(double mid)
-{
-    idx = 0;
-    memset(h, -1, sizeof h);
-
-    for (int i = 1; i <= n; ++i)
-        add(0, i, 0);
-    for (int i = 1; i <= m; ++i)
-        add(edges[i].a, edges[i].b, edges[i].p * mid - edges[i].v), add(edges[i].a, edges[i].b, edges[i].p * mid - edges[i].v);
-
-    memset(dis, 0x3f, sizeof dis);
-    dis[0] = 0;
-
+    for (int i = h[u]; i != -1; i = ne[i]) if (dis[e[i]] > dis[u] + w[i]) {
+        dis[e[i]] = dis[u] + w[i];
+        if (dfs_spfa(e[i])) { vis[u] = false; return true; }
+    } vis[u] = false; return false;
+} bool check(double mid) {
+    idx = 0; memset(h, -1, sizeof h);
+    for (int i = 1; i <= n; ++i) add(0, i, 0);
+    int w; for (int i = 1; i <= m; ++i) w = edges[i].p * mid - edges[i].v, add(edges[i].a, edges[i].b, w), add(edges[i].a, edges[i].b, w);
+    memset(dis, 0x3f, sizeof dis); dis[0] = 0;
     return dfs_spfa(0);
 }
 
