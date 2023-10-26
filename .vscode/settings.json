@@ -11,7 +11,7 @@
 	"code-runner.executorMap": {
 		"python": "python -u",
 		"c": "echo 正在编译... && gcc.exe \"$fileName\" -o \"$fileNameWithoutExt.exe\" -g -O2 -Wall -Wextra -DONLINE_JUDGE && echo 编译完成，正在运行！ && D:\\Programming\\ConsolePauser.exe 0 \"$fileNameWithoutExt.exe\" && del \"$dir$fileNameWithoutExt.exe\"",
-		"cpp": "echo 正在编译... && g++.exe \"$fileName\" -o \"$fileNameWithoutExt.exe\" -g -O2 -lm -std=c++14 -Wall -Wextra -DONLINE_JUDGE && echo 编译完成，正在运行！ && D:\\Programming\\ConsolePauser.exe 0 \"$fileNameWithoutExt.exe\" && del \"$dir$fileNameWithoutExt.exe\""
+		"cpp": "echo 正在编译... && g++.exe \"$fileName\" -o \"$fileNameWithoutExt.exe\" -fdiagnostics-color=always -O2 -lm -std=c++14 -Wall -Wextra -Wshadow -Wconversion -pedantic -fno-asm -fno-ms-extensions -fno-omit-frame-pointer -g -DMY_TEST -pipe -s -static && echo 编译完成，正在运行！ && D:\\Programming\\ConsolePauser.exe 0 \"$fileNameWithoutExt.exe\" && del \"$dir$fileNameWithoutExt.exe\""
 	},
     "editor.wordWrap": "on",
     "editor.mouseWheelZoom": true,
