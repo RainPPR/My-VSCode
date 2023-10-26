@@ -1,7 +1,6 @@
 // CF1728D Letter Picking
 
 #include <bits/stdc++.h>
-#include "CF1728D Letter Picking.h"
 
 using namespace std;
 
