@@ -4,7 +4,9 @@
             "name": "windows-gcc-x64",
             "includePath": [
                 "${workspaceFolder}/**",
-                "C:/Program Files/RedPanda-Cpp/MinGW64/**"
+                "C:/Program Files/RedPanda-Cpp/MinGW64/**",
+                "D:/Programming/gcc4.9.2-tdm64/**",
+                "D:/Programming/gcc9.2-tdm64/**"
             ],
             "defines": [
                 "_DEBUG",
