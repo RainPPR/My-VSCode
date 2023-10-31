@@ -1,10 +1,10 @@
-#include <bits/stdc++.h>
+#include <bits/extc++.h>
 
 using namespace std;
 
 signed main() {
-    double t = log2(-1);
-    cout << t << endl;
-    cout << ~int(t) << endl;
+    char op[1010];
+    scanf("%[123]", op);
+    cout << op << endl;
     return 0;
 }
