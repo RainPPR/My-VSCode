@@ -6,20 +6,20 @@ const int N = 1e6 + 10;
 
 string a, b;
 
-using htp = unsigned long long;
+using tp = unsigned long long;
 
-const htp p1 = 47;
-const htp p2 = 53;
+const tp p1 = 47;
+const tp p2 = 53;
 
-htp ft1[N], ft2[N];
+tp ft1[N], ft2[N];
 
-htp hb1, hb2;
+tp hb1, hb2;
 
-htp ha1[N], ha2[N];
-htp rha1[N], rha2[N];
+tp ha1[N], ha2[N];
+tp rha1[N], rha2[N];
 
-pair<htp, htp> merge(htp lp1, htp lp2, htp rp1, htp rp2, int rsz) {
-	htp h1, h2;
+pair<tp, tp> merge(tp lp1, tp lp2, tp rp1, tp rp2, int rsz) {
+	tp h1, h2;
 	h1 = lp1 * ft1[rsz] + rp1;
 	h2 = lp2 * ft2[rsz] + rp2;
 	return {h1, h2};
@@ -38,7 +38,7 @@ int main() {
 		rha1[i] = a[j] * ft1[i - 1] + rha1[i - 1];
 		rha2[i] = a[j] * ft2[i - 1] + rha2[i - 1];
 	} for (int i = 0, j = a.size() - 1; i < a.size(); ++i, --j) {
-		pair<htp, htp> t = merge(ha1[i], ha2[i], rha1[j], rha2[j], j);
+		pair<tp, tp> t = merge(ha1[i], ha2[i], rha1[j], rha2[j], j);
 		if (t.first == hb1 && t.second == hb2) ans.push_back(i + 1);
 	} printf("%d\n", ans.size());
 	for (int i : ans)printf("%d ", i);
