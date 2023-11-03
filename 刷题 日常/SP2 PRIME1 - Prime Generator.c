@@ -1,0 +1,1 @@
+int isprime(int x){if(x<=1)return 0;for(int i=2;(long long)i*i<=x;++i)if(x%i==0)return 0;return 1;}void solve(int l,int r){for(int i=l;i<=r;++i)if(isprime(i))printf("%d\n",i);puts("");}main(){int n,l,r;scanf("%d",&n);while(n--)scanf("%d%d",&l,&r),solve(l,r);}
